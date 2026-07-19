@@ -7,6 +7,7 @@ html {
   background: var(--color-page);
   color: var(--color-text);
   font-size: 16px;
+  scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
 }
 
@@ -14,7 +15,8 @@ body {
   min-height: 100vh;
   margin: 0;
   background:
-    linear-gradient(180deg, rgba(234, 247, 245, 0.92), rgba(247, 250, 249, 0) 360px),
+    linear-gradient(180deg, rgba(234, 247, 245, 0.78), rgba(247, 250, 249, 0) 360px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(234, 247, 245, 0.28)),
     var(--color-page);
 }
 
@@ -30,6 +32,16 @@ a {
   text-decoration: none;
 }
 
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:focus-visible {
+  outline: 3px solid rgba(47, 143, 107, 0.18);
+  outline-offset: 3px;
+}
+
 p {
   margin: 0;
 }
@@ -42,7 +54,7 @@ h3 {
 }
 
 h1 {
-  font-size: clamp(2rem, 5vw, 2.5rem);
+  font-size: clamp(2rem, 4vw, 2.75rem);
   line-height: 1.16;
 }
 
