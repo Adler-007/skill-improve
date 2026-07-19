@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import loginBgImage from "../public/login-bg.png";
-import siteLogo from "../public/logo.png";
+import loginBgLarge from "../public/login-bg-1920.jpg";
+import loginBgSmall from "../public/login-bg-960.jpg";
+import siteLogo from "../public/logo-96.png";
 import { login } from "../services/auth";
 
 const route = useRoute();
@@ -13,6 +14,7 @@ const password = ref("");
 const remember = ref(true);
 const errorMessage = ref("");
 const isSubmitting = ref(false);
+const loginBgSrcSet = `${loginBgSmall} 960w, ${loginBgLarge} 1920w`;
 
 const redirectPath = computed(() => {
   const redirect = route.query.redirect;
@@ -41,12 +43,22 @@ const submitLogin = () => {
 <template>
   <section class="login-page" aria-label="登录个人知识系统">
     <div class="login-scene" aria-hidden="true">
-      <img class="login-bg-image" :src="loginBgImage" alt="" />
+      <img
+        class="login-bg-image"
+        :src="loginBgLarge"
+        :srcset="loginBgSrcSet"
+        sizes="100vw"
+        alt=""
+        width="1920"
+        height="1080"
+        fetchpriority="high"
+        decoding="async"
+      />
       <div class="login-video-overlay"></div>
     </div>
 
     <div class="login-page-brand" aria-label="个人知识系统">
-      <img :src="siteLogo" alt="" />
+      <img :src="siteLogo" alt="" width="38" height="38" fetchpriority="high" decoding="async" />
       <span>个人知识系统</span>
     </div>
 

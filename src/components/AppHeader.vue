@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import siteLogo from "../public/logo.png";
+import siteLogo from "../public/logo-96.png";
 import { logout } from "../services/auth";
 
 const navItems = [
@@ -32,7 +32,7 @@ watch(
   <header class="site-header">
     <div class="site-header-top">
       <RouterLink class="brand" to="/" aria-label="返回知识总览">
-        <img class="brand-mark" :src="siteLogo" alt="" />
+        <img class="brand-mark" :src="siteLogo" alt="" width="36" height="36" decoding="async" />
         <span class="brand-text">个人知识系统</span>
       </RouterLink>
 
