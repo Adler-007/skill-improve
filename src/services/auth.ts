@@ -1,12 +1,13 @@
 const AUTH_STORAGE_KEY = "personal-knowledge-auth";
 
 const AUTH_ACCOUNT = {
-  username: "admin",
-  password: "123456"
+  username: "aili",
+  password: "123456",
 };
 
 export const login = (username: string, password: string, remember = true) => {
-  const passed = username === AUTH_ACCOUNT.username && password === AUTH_ACCOUNT.password;
+  const passed =
+    username === AUTH_ACCOUNT.username && password === AUTH_ACCOUNT.password;
 
   if (passed) {
     const storage = remember ? localStorage : sessionStorage;
