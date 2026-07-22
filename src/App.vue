@@ -2,6 +2,7 @@
 import { computed } from "vue";
 import { useRoute } from "vue-router";
 import AppHeader from "./components/AppHeader.vue";
+import BackToTop from "./components/BackToTop.vue";
 
 const route = useRoute();
 const isImmersivePage = computed(() => Boolean(route.meta.immersive));
@@ -13,5 +14,6 @@ const isImmersivePage = computed(() => Boolean(route.meta.immersive));
     <main :class="isImmersivePage ? 'app-main-immersive' : 'app-main'">
       <RouterView />
     </main>
+    <BackToTop />
   </div>
 </template>
