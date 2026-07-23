@@ -38,10 +38,11 @@ watch(
 
       <button
         class="menu-toggle"
+        :class="{ open: isMenuOpen }"
         type="button"
         :aria-expanded="isMenuOpen"
         aria-controls="site-nav"
-        aria-label="打开主导航"
+        :aria-label="isMenuOpen ? '关闭主导航' : '打开主导航'"
         @click="isMenuOpen = !isMenuOpen"
       >
         <span></span>
