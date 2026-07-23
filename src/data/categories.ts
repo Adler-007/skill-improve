@@ -7,9 +7,9 @@ export const categoryDefinitions: CategoryDefinition[] = [
     meta: "核心能力"
   },
   {
-    name: "前端工程",
-    summary: "整理 Vue、工程化、组件设计、性能优化和交互实现经验。",
-    meta: "技术实践"
+    name: "工程转agent应用开发",
+    summary: "整理从工程开发经验迁移到 Agent 应用设计、编排、工具调用和落地实践的方法。",
+    meta: "转型实践"
   },
   {
     name: "AI 工具使用",

@@ -13,7 +13,7 @@ import {
 
 const learningPath = [
   "系统理解能力",
-  "前端工程",
+  "工程转agent应用开发",
   "AI 工具使用",
   "项目复盘"
 ];
