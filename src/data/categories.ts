@@ -17,11 +17,6 @@ export const categoryDefinitions: CategoryDefinition[] = [
     meta: "效率工具"
   },
   {
-    name: "产品思维",
-    summary: "整理用户价值、范围判断、需求拆解和体验权衡。",
-    meta: "产品判断"
-  },
-  {
     name: "项目复盘",
     summary: "把项目经历转化成可复用的判断标准、流程和检查清单。",
     meta: "经验沉淀"

@@ -12,11 +12,13 @@ export interface NoteMeta {
 }
 
 export type NoteContentBlock = {
-  type: "heading" | "paragraph" | "list" | "code" | "quote";
+  type: "heading" | "paragraph" | "list" | "code" | "quote" | "table";
   id?: string;
   level?: 2 | 3;
   text?: string;
   items?: string[];
+  headers?: string[];
+  rows?: string[][];
   language?: string;
   code?: string;
 };

@@ -688,4 +688,117 @@ export const notes: Note[] = [
       },
     ],
   },
+  {
+    id: "software-project-introduction-framework",
+    title: "软件项目介绍四段式框架",
+    category: "方法论沉淀",
+    tags: ["项目表达", "简历优化", "方法论"],
+    summary:
+      "把软件项目介绍拆成项目名称、项目描述、技术栈和项目职责四个模块，用公式、案例和避坑清单提升表达质量。",
+    createdAt: "2026-07-23",
+    updatedAt: "2026-07-23",
+    featured: false,
+    route: "/notes/software-project-introduction-framework",
+    readingTime: "4 分钟",
+    content: [
+      {
+        type: "heading",
+        id: "golden-structure",
+        level: 2,
+        text: "一、黄金结构",
+      },
+      {
+        type: "table",
+        headers: ["模块", "核心目标", "撰写公式"],
+        rows: [
+          ["项目名称", "秒懂“是什么”", "[产品类型] + [核心定位]"],
+          [
+            "项目描述",
+            "讲清价值与结果",
+            "为[谁]解决[什么问题]，实现[量化结果]",
+          ],
+          ["项目技术栈", "展示技术深度", "前端/后端/数据库/部署/特色技术"],
+          ["项目职责", "突出个人贡献", "动词开头 + 量化结果（3~5条）"],
+        ],
+      },
+      {
+        type: "heading",
+        id: "case-dashboard",
+        level: 2,
+        text: "二、案例：数据可视化大屏",
+      },
+      {
+        type: "paragraph",
+        text: "项目名称：城市智慧交通·实时调度看板",
+      },
+      {
+        type: "paragraph",
+        text: "项目描述：为交管部门定制实时路况监测+应急调度大屏，整合5000+路摄像头/GPS/地磁。数据刷新延迟<3s，拥堵响应时间 15min→4min。",
+      },
+      {
+        type: "paragraph",
+        text: "项目技术栈：Vue2 + ECharts + Mapbox GL / Spring Cloud + Kafka / ClickHouse + PostgreSQL / 内网私有云 / 自适应4K/8K",
+      },
+      {
+        type: "heading",
+        id: "case-responsibilities",
+        level: 3,
+        text: "项目职责",
+      },
+      {
+        type: "list",
+        items: [
+          "开发实时热力图+路况预测曲线，支持动态时间轴拖拽。",
+          "搭建 WebSocket 长连接池，管理 200+ 并发客户端，50ms 内分发。",
+          "虚拟滚动+数据分片，支撑 10 万+车辆轨迹点不卡顿。",
+          "适配方案（rem+vw/vh），一套代码适配 6 种屏幕尺寸。",
+        ],
+      },
+      {
+        type: "heading",
+        id: "tech-stack-upgrade",
+        level: 2,
+        text: "三、技术栈表达升级",
+      },
+      {
+        type: "table",
+        headers: ["平庸写法", "高级写法"],
+        rows: [
+          ["用了 Vue 全家桶", "Vue3 + Vite + Pinia 工程化体系"],
+          ["用了 MySQL", "MySQL + Redis 缓存热点查询"],
+          ["调了接口", "Axios 二次拦截，统一 Token 刷新+错误码"],
+          ["做了图表", "ECharts 定制组件，支持数据下钻"],
+          ["部署上线", "Jenkins + Docker CI/CD，一键回滚"],
+          ["优化性能", "路由懒加载+CDN 分离+Gzip，首屏↑60%"],
+        ],
+      },
+      {
+        type: "heading",
+        id: "pitfalls",
+        level: 2,
+        text: "四、避坑要点",
+      },
+      {
+        type: "table",
+        headers: ["问题", "对策"],
+        rows: [
+          ["只参与 1%", "职责写那 1%，量化其价值。"],
+          ["技术栈老旧", "承认事实，强调“在旧架构下做现代化改造”。"],
+          ["项目未上线", "描述改为“预期目标”或压测数据。"],
+          ["项目过大", "只写负责的子系统，如“订单履约子系统”。"],
+        ],
+      },
+      {
+        type: "heading",
+        id: "template",
+        level: 2,
+        text: "五、万能填空模板",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "**项目名称：** [类型]·[核心功能]\n\n**项目描述：** 为[目标用户]打造的[产品]，解决[痛点]。上线后[量化结果1]，[量化结果2]。\n\n**项目技术栈：** 前端[框架]；后端[语言+框架]；数据库[类型]；中间件[缓存/队列]；部署[环境]；特色[最亮眼技术点]。\n\n**项目职责：**\n- [动词][模块A]，实现[量化指标]，[技术手段]\n- [动词][模块B]，[指标]从[A]→[B]，[技术手段]\n- 优化[体验点]，[指标]改善[百分比]\n- 参与[团队协作]，保证[按时交付/质量稳定]",
+      },
+    ],
+  },
 ];

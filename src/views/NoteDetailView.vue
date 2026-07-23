@@ -63,6 +63,22 @@ const relatedNotes = computed(() => (note.value ? getRelatedNotes(note.value) : 
             :language="block.language"
           />
           <blockquote v-else-if="block.type === 'quote'">{{ block.text }}</blockquote>
+          <div v-else-if="block.type === 'table'" class="note-table-wrap">
+            <table class="note-table">
+              <thead>
+                <tr>
+                  <th v-for="header in block.headers ?? []" :key="header">{{ header }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="(row, rowIndex) in block.rows ?? []" :key="rowIndex">
+                  <td v-for="(cell, cellIndex) in row" :key="`${rowIndex}-${cellIndex}`">
+                    {{ cell }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </template>
 
         <nav class="adjacent-notes" aria-label="上一篇和下一篇">
