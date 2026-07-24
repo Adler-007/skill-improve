@@ -801,4 +801,225 @@ export const notes: Note[] = [
       },
     ],
   },
+  {
+    id: "controller-service-mapper-three-layer",
+    title: "Controller、Service、Mapper 为什么要分三层？",
+    category: "全栈思维",
+    tags: ["Spring Boot", "三层架构", "后端思维"],
+    summary:
+      "用用户查询接口讲清 Controller、Service、Mapper 各自职责，以及三层架构如何帮助企业项目管理复杂度。",
+    createdAt: "2026-07-25",
+    updatedAt: "2026-07-25",
+    featured: false,
+    route: "/notes/controller-service-mapper-three-layer",
+    readingTime: "6 分钟",
+    content: [
+      {
+        type: "heading",
+        id: "core-view",
+        level: 2,
+        text: "文章核心观点",
+      },
+      {
+        type: "paragraph",
+        text: "本文用一个最简单的用户查询接口为例，讲清楚 Spring Boot 三层架构（Controller、Service、Mapper）各自负责什么、为什么必须分层，以及分层设计对企业项目的真正价值。",
+      },
+      {
+        type: "heading",
+        id: "frontend-confusion",
+        level: 2,
+        text: "一、前端的困惑：查一个用户信息，为什么需要这么多文件？",
+      },
+      {
+        type: "paragraph",
+        text: "前端可能一个 User.vue 就能完成页面，但 Java 后端通常会把入口、业务、数据访问、实体和展示对象拆成多个文件。",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "UserController.java        <- 入口\nUserService.java           <- 接口定义\nUserServiceImpl.java       <- 业务实现\nUserMapper.java            <- 数据访问\nUserEntity.java            <- 数据实体\nUserDTO.java               <- 数据传输\nUserVO.java                <- 视图对象",
+      },
+      {
+        type: "quote",
+        text: "后端是不是把简单的问题复杂化了？其实不是。这三层，是大型项目能够长期维护的基础。",
+      },
+      {
+        type: "heading",
+        id: "three-layers",
+        level: 2,
+        text: "二、三层架构详解",
+      },
+      {
+        type: "heading",
+        id: "controller",
+        level: 3,
+        text: "第一层：Controller —— 接收请求的人",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: "@RestController\n@RequestMapping(\"/user\")\npublic class UserController {\n    @Autowired\n    private UserService userService;\n\n    @GetMapping(\"/info\")\n    public UserVO info(Long id) {\n        return userService.getUserInfo(id);\n    }\n}",
+      },
+      {
+        type: "list",
+        items: [
+          "接收 HTTP 请求，例如 GET /user/info?id=1001。",
+          "获取请求参数，例如 Long id。",
+          "调用业务代码，例如 userService.getUserInfo(id)。",
+        ],
+      },
+      {
+        type: "quote",
+        text: "Controller = 后端世界的接口入口。如果把系统比作一家餐厅，Controller 就是服务员：负责接待客户，但不会炒菜。",
+      },
+      {
+        type: "heading",
+        id: "service",
+        level: 3,
+        text: "第二层：Service —— 真正处理业务的人",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: "@Service\npublic class UserServiceImpl implements UserService {\n    public UserVO getUserInfo(Long id) {\n        User user = userMapper.selectById(id);\n        UserVO vo = new UserVO();\n        vo.setName(user.getName());\n        return vo;\n    }\n}",
+      },
+      {
+        type: "list",
+        items: [
+          "判断用户是否存在。",
+          "判断用户是否被冻结。",
+          "决定是否需要脱敏手机号。",
+          "判断是否需要查询会员等级。",
+          "处理头像地址拼接等业务规则。",
+        ],
+      },
+      {
+        type: "quote",
+        text: "Service = 系统业务规则的核心。",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "Controller：收到下单请求\n    ↓\nService：检查库存 -> 计算价格 -> 优惠计算 -> 生成订单\n    ↓\nMapper：保存数据库",
+      },
+      {
+        type: "heading",
+        id: "mapper",
+        level: 3,
+        text: "第三层：Mapper —— 和数据库沟通的人",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: "// Service 调用\nuserMapper.selectById(id);\n\n// Mapper 定义\nUser selectById(Long id);\n\n// 最终执行 SQL\nselect * from user where id = 1001;",
+      },
+      {
+        type: "quote",
+        text: "Mapper = Java 和数据库之间的桥梁。",
+      },
+      {
+        type: "heading",
+        id: "relationship",
+        level: 2,
+        text: "三、三层关系总结",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "Controller：我收到请求了\n    ↓\nService：我处理业务逻辑\n    ↓\nMapper：我负责查询数据库",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "浏览器\n  ↓\nController（入口/接收请求）\n  ↓\nService（业务逻辑）\n  ↓\nMapper（数据访问）\n  ↓\nMySQL（数据库）\n  ↓\n原路返回 -> JSON -> 浏览器",
+      },
+      {
+        type: "heading",
+        id: "not-one-file",
+        level: 2,
+        text: "四、为什么不能全部写在一个文件？",
+      },
+      {
+        type: "paragraph",
+        text: "企业项目和个人项目最大的区别是规模。一个项目可能有 100 个开发人员、1000 个接口、100 万行代码。如果查询数据库、判断权限、计算价格、发送短信和生成日志全部写在一起，半年以后就没人敢改，因为不知道改这里会不会影响其他地方。",
+      },
+      {
+        type: "heading",
+        id: "three-problems",
+        level: 2,
+        text: "五、三层架构真正解决的三个问题",
+      },
+      {
+        type: "table",
+        headers: ["问题", "解决方案"],
+        rows: [
+          [
+            "方便维护",
+            "业务变化改 Service，数据库变化改 Mapper，接口变化改 Controller，互不影响。",
+          ],
+          [
+            "方便团队协作",
+            "后端 A 负责 Controller，后端 B 负责 Service，后端 C 负责数据库，可同时开发。",
+          ],
+          [
+            "代码复用",
+            "用户信息被订单系统、支付系统、消息系统共用，Service 可直接复用。",
+          ],
+        ],
+      },
+      {
+        type: "heading",
+        id: "frontend-view",
+        level: 2,
+        text: "六、前端应该如何理解这三层？",
+      },
+      {
+        type: "table",
+        headers: ["后端概念", "前端对应理解"],
+        rows: [
+          ["Controller", "API 入口"],
+          ["Service", "页面中的业务逻辑"],
+          ["Mapper", "数据请求层（类似前端的 api 模块）"],
+          ["Entity", "数据模型"],
+          ["VO", "页面需要的数据结构"],
+        ],
+      },
+      {
+        type: "heading",
+        id: "practice",
+        level: 2,
+        text: "七、今日实践任务",
+      },
+      {
+        type: "paragraph",
+        text: "打开公司的 Spring Boot 项目，不要写代码，先完成三个阅读任务。",
+      },
+      {
+        type: "list",
+        items: [
+          "任务 1：找到一个 Controller，通常能看到 @RestController。",
+          "任务 2：找到它调用的 Service，通常是 xxxService.xxx()。",
+          "任务 3：继续找到 Mapper，通常是 xxxMapper.xxx()。",
+        ],
+      },
+      {
+        type: "paragraph",
+        text: "完成以后，你已经第一次真正读懂了一个 Java 接口。",
+      },
+      {
+        type: "heading",
+        id: "final-note",
+        level: 2,
+        text: "八、写在最后",
+      },
+      {
+        type: "quote",
+        text: "复杂的不是 Java，复杂的是企业业务。",
+      },
+      {
+        type: "paragraph",
+        text: "Spring Boot 的分层设计，本质是在帮助团队管理复杂度。当你理解 Controller 是入口、Service 是业务、Mapper 是数据，下一次打开 Java 项目，你看到的不再是一堆陌生文件，而是一条清晰的数据流。这就是前端工程师迈向全栈思维的重要一步。",
+      },
+    ],
+  },
 ];

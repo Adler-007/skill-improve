@@ -7,6 +7,11 @@ export const categoryDefinitions: CategoryDefinition[] = [
     meta: "核心能力"
   },
   {
+    name: "全栈思维",
+    summary: "沉淀前端理解后端、接口链路、分层架构和工程协作的方法。",
+    meta: "工程视角"
+  },
+  {
     name: "工程转agent应用开发",
     summary: "整理从工程开发经验迁移到 Agent 应用设计、编排、工具调用和落地实践的方法。",
     meta: "转型实践"
