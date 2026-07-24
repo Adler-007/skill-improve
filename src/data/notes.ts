@@ -4,7 +4,7 @@ export const notes: Note[] = [
   {
     id: "system-ability",
     title: "如何理解系统能力",
-    category: "系统理解能力",
+    category: "全栈思维",
     tags: ["认知", "系统设计", "方法论"],
     summary: "整理对系统理解能力的定义、组成和训练方式。",
     createdAt: "2026-07-19",
@@ -54,7 +54,7 @@ export const notes: Note[] = [
   {
     id: "frontend-backend-handbook-opening",
     title: "前端工程师的后端修炼手册（开篇）",
-    category: "系统理解能力",
+    category: "全栈思维",
     tags: ["系统理解", "后端思维", "工程协作"],
     summary:
       "从前端工程师的职业困境出发，整理为什么要学习后端思维，以及如何用系统视角理解接口、数据库、缓存和日志。",
