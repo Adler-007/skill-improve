@@ -4,7 +4,7 @@ export const notes: Note[] = [
   {
     id: "system-ability",
     title: "如何理解系统能力",
-    category: "全栈思维",
+    category: "系统理解能力",
     tags: ["认知", "系统设计", "方法论"],
     summary: "整理对系统理解能力的定义、组成和训练方式。",
     createdAt: "2026-07-19",
@@ -161,7 +161,7 @@ export const notes: Note[] = [
   {
     id: "frontend-open-spring-boot-project",
     title: "前端工程师第一次打开 Spring Boot 项目，到底应该先看什么？",
-    category: "系统理解能力",
+    category: "全栈思维",
     tags: ["Spring Boot", "请求链路", "后端思维"],
     summary:
       "整理前端工程师阅读 Spring Boot 项目的六步方法：先建立全局，再顺着请求流向理解 Controller、Service、Mapper 和数据库。",
@@ -858,7 +858,7 @@ export const notes: Note[] = [
       {
         type: "code",
         language: "java",
-        code: "@RestController\n@RequestMapping(\"/user\")\npublic class UserController {\n    @Autowired\n    private UserService userService;\n\n    @GetMapping(\"/info\")\n    public UserVO info(Long id) {\n        return userService.getUserInfo(id);\n    }\n}",
+        code: '@RestController\n@RequestMapping("/user")\npublic class UserController {\n    @Autowired\n    private UserService userService;\n\n    @GetMapping("/info")\n    public UserVO info(Long id) {\n        return userService.getUserInfo(id);\n    }\n}',
       },
       {
         type: "list",
