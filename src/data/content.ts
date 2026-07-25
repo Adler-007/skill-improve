@@ -5,6 +5,9 @@ import type { CategoryStats, Note, TagStats } from "./types";
 const byUpdatedDesc = (a: Note, b: Note) =>
   b.updatedAt.localeCompare(a.updatedAt) || b.createdAt.localeCompare(a.createdAt);
 
+const byCategoryOrder = (a: Note, b: Note) =>
+  a.categoryOrder - b.categoryOrder || byUpdatedDesc(a, b);
+
 export const sortedNotes = [...notes].sort(byUpdatedDesc);
 
 export const featuredNotes = sortedNotes.filter((note) => note.featured);
@@ -50,7 +53,10 @@ export const tagStats: TagStats[] = [...new Set(notes.flatMap((note) => note.tag
 export const getNoteById = (id: string) => notes.find((note) => note.id === id);
 
 export const getNotesByCategory = (categoryName: string) =>
-  sortedNotes.filter((note) => note.category === categoryName);
+  notes.filter((note) => note.category === categoryName).sort(byCategoryOrder);
+
+export const sortNotesByCategoryOrder = (targetNotes: Note[]) =>
+  [...targetNotes].sort(byCategoryOrder);
 
 export const getNotesByTag = (tagName: string) =>
   sortedNotes.filter((note) => note.tags.includes(tagName));

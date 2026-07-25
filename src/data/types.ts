@@ -2,6 +2,7 @@ export interface NoteMeta {
   id: string;
   title: string;
   category: string;
+  categoryOrder: number;
   tags: string[];
   summary: string;
   createdAt: string;

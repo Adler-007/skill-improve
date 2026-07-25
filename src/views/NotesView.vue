@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { computed, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { categoriesWithStats, sortedNotes, tagStats } from "../data/content";
+import {
+  categoriesWithStats,
+  sortNotesByCategoryOrder,
+  sortedNotes,
+  tagStats
+} from "../data/content";
 
 const route = useRoute();
 const router = useRouter();
@@ -51,8 +56,8 @@ const submitSearch = () => {
   });
 };
 
-const visibleNotes = computed(() =>
-  sortedNotes.filter((note) => {
+const visibleNotes = computed(() => {
+  const filteredNotes = sortedNotes.filter((note) => {
     const matchesCategory = selectedCategory.value
       ? note.category === selectedCategory.value
       : true;
@@ -68,8 +73,10 @@ const visibleNotes = computed(() =>
     const matchesKeyword = keyword ? searchableText.includes(keyword) : true;
 
     return matchesCategory && matchesTag && matchesFeatured && matchesKeyword;
-  })
-);
+  });
+
+  return selectedCategory.value ? sortNotesByCategoryOrder(filteredNotes) : filteredNotes;
+});
 </script>
 
 <template>

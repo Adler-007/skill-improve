@@ -35,6 +35,7 @@
 src/
 ├── components/       # 通用组件
 ├── data/             # 分类、文章和内容统计逻辑
+│   └── notes/        # 按分类拆分的文章数据
 ├── router/           # 路由配置
 ├── services/         # 认证相关逻辑
 ├── styles/           # 全局样式
@@ -45,11 +46,12 @@ src/
 
 新增或调整文章主要修改以下文件：
 
-- `src/data/notes.ts`：文章元信息和正文内容。
+- `src/data/notes/*.ts`：按分类维护文章元信息和正文内容。
+- `src/data/notes/index.ts`：统一汇总各分类文章数据。
 - `src/data/categories.ts`：知识分类定义。
 - `src/data/types.ts`：文章内容块类型定义。
 
-文章需要包含 `id`、`title`、`category`、`tags`、`summary`、创建/更新时间、路由和正文内容。新增文章后会自动进入文章列表；如果分类匹配，也会自动计入分类统计。
+文章需要包含 `id`、`title`、`category`、`categoryOrder`、`tags`、`summary`、创建/更新时间、路由和正文内容。`categoryOrder` 用于控制同一分类下的文章展示顺序；全站最近更新仍按更新时间排序。新增文章后会自动进入文章列表；如果分类匹配，也会自动计入分类统计。
 
 最近新增内容：
 
