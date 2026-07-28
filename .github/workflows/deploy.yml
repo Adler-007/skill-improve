@@ -62,11 +62,42 @@ jobs:
       - name: Install CloudBase CLI
         run: npm install -g @cloudbase/cli
 
-      - name: Deploy to CloudBase Static Hosting
+      - name: Validate CloudBase secrets
         env:
           TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
           TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
           TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
         run: |
-          tcb login --apiKeyId "$TCB_SECRET_ID" --apiKey "$TCB_SECRET_KEY"
+          if [ -z "$TCB_SECRET_ID" ]; then
+            echo "::error::Missing GitHub Actions secret: TCB_SECRET_ID"
+            exit 1
+          fi
+
+          if [ -z "$TCB_SECRET_KEY" ]; then
+            echo "::error::Missing GitHub Actions secret: TCB_SECRET_KEY"
+            exit 1
+          fi
+
+          if [ -z "$TCB_ENV_ID" ]; then
+            echo "::error::Missing GitHub Actions secret: TCB_ENV_ID"
+            exit 1
+          fi
+
+          case "$TCB_SECRET_ID" in
+            AKID*) ;;
+            *)
+              echo "::warning::TCB_SECRET_ID usually starts with AKID. Make sure this is the Tencent Cloud CAM SecretId, not a CloudBase environment ID or API key."
+              ;;
+          esac
+
+      - name: Login CloudBase CLI
+        env:
+          TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+          TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+        run: tcb login --apiKeyId "$TCB_SECRET_ID" --apiKey "$TCB_SECRET_KEY"
+
+      - name: Deploy to CloudBase Static Hosting
+        env:
+          TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+        run: |
           tcb hosting deploy "./${BUILD_DIR}" "$CLOUDBASE_STATIC_PATH" -e "$TCB_ENV_ID"
