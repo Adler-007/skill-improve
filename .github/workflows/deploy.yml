@@ -15,7 +15,7 @@ permissions:
 env:
   NODE_VERSION: "22"
   BUILD_DIR: dist
-  CLOUDBASE_STATIC_PATH: /home
+  CLOUDBASE_STATIC_PATH: /skill-improve
 
 jobs:
   build:
