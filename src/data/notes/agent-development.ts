@@ -17,27 +17,13 @@ export const agentDevelopmentNotes: Note[] = [
     content: [
       {
         type: "heading",
-        id: "source",
-        level: 2,
-        text: "文章来源",
-      },
-      {
-        type: "paragraph",
-        text: "原文链接：https://mp.weixin.qq.com/s/N0OxJimEOlkXfepsxz7CAQ",
-      },
-      {
-        type: "paragraph",
-        text: "作者：老A的AI产品的进阶",
-      },
-      {
-        type: "heading",
         id: "core-view",
         level: 2,
         text: "文章核心观点",
       },
       {
         type: "paragraph",
-        text: "作者从后端转 Agent 开发一年后的实战经验出发，指出很多人学习 Agent 的顺序是错的：一上来就刷 LangChain、跑 Demo，结果真正做项目时，一遇到工程问题就卡壳。文章给出的核心路线是：底层理解优先于框架学习，Agent 开发本质还是工程开发。",
+        text: "从后端转 Agent 开发一年后的实战经验出发，指出很多人学习 Agent 的顺序是错的：一上来就刷 LangChain、跑 Demo，结果真正做项目时，一遇到工程问题就卡壳。文章给出的核心路线是：底层理解优先于框架学习，Agent 开发本质还是工程开发。",
       },
       {
         type: "heading",
@@ -157,7 +143,7 @@ export const agentDevelopmentNotes: Note[] = [
         type: "heading",
         id: "core-insight",
         level: 2,
-        text: "作者的核心感悟",
+        text: "核心结论",
       },
       {
         type: "quote",
