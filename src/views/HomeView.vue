@@ -8,14 +8,14 @@ import {
   recentNotes,
   tagStats,
   totalCategoryCount,
-  totalNoteCount
+  totalNoteCount,
 } from "../data/content";
 
 const learningPath = [
   "系统理解能力",
   "工程转agent应用开发",
   "AI 工具使用",
-  "项目复盘"
+  "项目复盘",
 ];
 
 const router = useRouter();
@@ -26,7 +26,7 @@ const submitSearch = () => {
 
   router.push({
     path: "/notes",
-    query: q ? { q } : {}
+    query: q ? { q } : {},
   });
 };
 </script>
@@ -36,13 +36,15 @@ const submitSearch = () => {
     <header class="dashboard-hero">
       <div class="dashboard-intro">
         <p class="eyebrow">Knowledge Dashboard</p>
-        <h1>个人知识系统</h1>
+        <h1>思笈 —— 个人知识管理系统</h1>
         <p class="intro-copy">
           用清晰的分类、稳定的结构和舒适的阅读体验，展示持续积累的知识内容。
         </p>
         <div class="hero-actions" aria-label="首页快捷入口">
           <RouterLink class="primary-link" to="/notes">浏览文章</RouterLink>
-          <RouterLink class="secondary-link" to="/categories">查看分类</RouterLink>
+          <RouterLink class="secondary-link" to="/categories"
+            >查看分类</RouterLink
+          >
         </div>
       </div>
 
@@ -132,7 +134,12 @@ const submitSearch = () => {
       </div>
 
       <div class="compact-note-list">
-        <RouterLink v-for="note in recentNotes" :key="note.id" class="compact-note" :to="note.route">
+        <RouterLink
+          v-for="note in recentNotes"
+          :key="note.id"
+          class="compact-note"
+          :to="note.route"
+        >
           <span>{{ note.updatedAt }}</span>
           <strong>{{ note.title }}</strong>
           <em>{{ note.category }}</em>
@@ -160,7 +167,9 @@ const submitSearch = () => {
           <h3>{{ note.title }}</h3>
           <p>{{ note.summary }}</p>
           <div class="note-tags" aria-label="文章标签">
-            <span v-for="tag in note.tags" :key="tag" class="note-tag">{{ tag }}</span>
+            <span v-for="tag in note.tags" :key="tag" class="note-tag">{{
+              tag
+            }}</span>
           </div>
         </RouterLink>
       </div>

@@ -32,8 +32,15 @@ watch(
   <header class="site-header">
     <div class="site-header-top">
       <RouterLink class="brand" to="/" aria-label="返回知识总览">
-        <img class="brand-mark" :src="siteLogo" alt="" width="36" height="36" decoding="async" />
-        <span class="brand-text">个人知识系统</span>
+        <img
+          class="brand-mark"
+          :src="siteLogo"
+          alt=""
+          width="36"
+          height="36"
+          decoding="async"
+        />
+        <span class="brand-text">思笈 —— 个人知识管理系统</span>
       </RouterLink>
 
       <button
@@ -65,7 +72,13 @@ watch(
       >
         {{ item.label }}
       </RouterLink>
-      <button class="nav-link logout-button" type="button" @click="handleLogout">退出</button>
+      <button
+        class="nav-link logout-button"
+        type="button"
+        @click="handleLogout"
+      >
+        退出
+      </button>
     </nav>
   </header>
 </template>
