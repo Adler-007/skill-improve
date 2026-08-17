@@ -40,7 +40,7 @@ watch(
           height="36"
           decoding="async"
         />
-        <span class="brand-text">思笈 —— 个人知识管理系统</span>
+        <span class="brand-text">思笈-个人知识管理系统</span>
       </RouterLink>
 
       <button

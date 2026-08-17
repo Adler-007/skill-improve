@@ -36,7 +36,6 @@ const submitSearch = () => {
     <header class="dashboard-hero">
       <div class="dashboard-intro">
         <p class="eyebrow">Knowledge Dashboard</p>
-        <h1>思笈 —— 个人知识管理系统</h1>
         <p class="intro-copy">
           用清晰的分类、稳定的结构和舒适的阅读体验，展示持续积累的知识内容。
         </p>
