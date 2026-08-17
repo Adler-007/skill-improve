@@ -520,4 +520,307 @@ export const fullStackThinkingNotes: Note[] = [
       },
     ],
   },
+  {
+    id: "api-lifecycle-browser-to-database",
+    title: "一个接口的一生：从浏览器到数据库，到底发生了什么？",
+    category: "全栈思维",
+    categoryOrder: 4,
+    tags: ["请求链路", "系统理解", "后端思维"],
+    summary:
+      "完整拆解一个 HTTP 请求从浏览器发出到数据返回的全链路过程：DNS、Nginx、Controller、Service、Mapper、MySQL、Redis，再原路返回浏览器。",
+    createdAt: "2026-08-17",
+    updatedAt: "2026-08-17",
+    featured: false,
+    route: "/notes/api-lifecycle-browser-to-database",
+    readingTime: "7 分钟",
+    content: [
+      {
+        type: "heading",
+        id: "core-view",
+        level: 2,
+        text: "文章核心观点",
+      },
+      {
+        type: "paragraph",
+        text: "本文完整拆解了一个 HTTP 请求从浏览器发出到数据返回的全链路过程。核心主张：前端每天调用接口，但真正限制成长的不是 Vue/React 不够熟，而是是否理解请求背后的完整链路。",
+      },
+      {
+        type: "heading",
+        id: "frontend-vs-real-world",
+        level: 2,
+        text: "一、前端眼中的接口 vs 真实世界",
+      },
+      {
+        type: "paragraph",
+        text: "前端每天写的代码：",
+      },
+      {
+        type: "code",
+        language: "javascript",
+        code: 'const { data } = await axios.get("/api/user/info");',
+      },
+      {
+        type: "paragraph",
+        text: "看起来只是一个 URL，但真实经历的过程是：",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "浏览器\n  ↓\nDNS 解析\n  ↓\nNginx（网关/负载均衡）\n  ↓\nSpring Boot\n  ↓\nController（入口）\n  ↓\nService（业务逻辑）\n  ↓\nMapper（数据访问）\n  ↓\nMySQL（数据库）\n  ↓\nRedis（缓存）\n  ↓\n原路返回 JSON\n  ↓\n浏览器渲染页面",
+      },
+      {
+        type: "heading",
+        id: "eight-stations",
+        level: 2,
+        text: "二、全链路八站详解",
+      },
+      {
+        type: "heading",
+        id: "station-1-browser",
+        level: 3,
+        text: "第一站：浏览器发起请求",
+      },
+      {
+        type: "paragraph",
+        text: "用户点击按钮，浏览器生成 HTTP 请求：",
+      },
+      {
+        type: "code",
+        language: "http",
+        code: "GET /api/user/info\nHost: api.xxx.com\nCookie: token=xxxx",
+      },
+      {
+        type: "paragraph",
+        text: "请求离开浏览器，但还没进入 Java 项目。",
+      },
+      {
+        type: "heading",
+        id: "station-2-dns",
+        level: 3,
+        text: "第二站：DNS 解析",
+      },
+      {
+        type: "quote",
+        text: "DNS 就像互联网中的通讯录。",
+      },
+      {
+        type: "paragraph",
+        text: "浏览器拿到域名 api.xxx.com，通过 DNS 查询对应的服务器 IP，然后才能继续通信。",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "域名 → 服务器 IP",
+      },
+      {
+        type: "heading",
+        id: "station-3-nginx",
+        level: 3,
+        text: "第三站：Nginx —— 为什么请求先经过 Nginx？",
+      },
+      {
+        type: "paragraph",
+        text: "真实企业项目中，用户不会直接访问 Spring Boot，中间有 Nginx，原因有三：",
+      },
+      {
+        type: "list",
+        items: [
+          "接收请求：所有用户请求先进入 Nginx。",
+          "转发请求：例如 /api/user/info 判断为用户服务，转发给 user-service。",
+          "负载均衡：后端可能有多个实例，Nginx 负责分配请求。",
+        ],
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "       Nginx\n      /  |  \\\n  服务A  服务B  服务C",
+      },
+      {
+        type: "heading",
+        id: "station-4-controller",
+        level: 3,
+        text: "第四站：Spring Boot 找到 Controller",
+      },
+      {
+        type: "paragraph",
+        text: "请求进入 Java 世界，Spring Boot 根据请求地址和方式找到对应方法：",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: '@RestController\n@RequestMapping("/user")\npublic class UserController {\n    @GetMapping("/info")\n    public UserVO info() { }\n}',
+      },
+      {
+        type: "paragraph",
+        text: "Controller 的职责是接收请求、获取参数、返回结果，真正复杂的业务交给下一层。",
+      },
+      {
+        type: "heading",
+        id: "station-5-service",
+        level: 3,
+        text: "第五站：Service —— 业务真正发生的地方",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: "userService.getUserInfo(id)",
+      },
+      {
+        type: "paragraph",
+        text: "真实项目可能需要：",
+      },
+      {
+        type: "list",
+        items: [
+          "判断用户是否存在。",
+          "判断用户状态。",
+          "查询会员等级。",
+          "拼接头像地址。",
+          "手机号脱敏。",
+          "查询关联数据。",
+        ],
+      },
+      {
+        type: "table",
+        headers: ["层级", "角色比喻"],
+        rows: [
+          ["Controller", "用户来了，我负责接待。"],
+          ["Service", "这个事情具体怎么处理，我负责安排。"],
+          ["Mapper", "数据从哪里拿，我负责查询。"],
+        ],
+      },
+      {
+        type: "heading",
+        id: "station-6-mapper",
+        level: 3,
+        text: "第六站：Mapper 查询数据库",
+      },
+      {
+        type: "code",
+        language: "java",
+        code: "// Java 方法\nUser selectById(Long id);\n\n// 最终执行 SQL\nselect * from user where id = 1001;",
+      },
+      {
+        type: "paragraph",
+        text: "数据库返回用户数据，然后数据开始往回走。",
+      },
+      {
+        type: "heading",
+        id: "station-7-redis",
+        level: 3,
+        text: "第七站：Redis 为什么会出现？",
+      },
+      {
+        type: "paragraph",
+        text: "Redis 本质是在改变数据访问路径。",
+      },
+      {
+        type: "heading",
+        id: "redis-first-request",
+        level: 3,
+        text: "第一次请求",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "请求 → Redis 没有数据 → 查询 MySQL → 保存 Redis",
+      },
+      {
+        type: "heading",
+        id: "redis-second-request",
+        level: 3,
+        text: "第二次请求",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "请求 → 查询 Redis → 直接返回（速度更快）",
+      },
+      {
+        type: "paragraph",
+        text: "用户量大时，每次都查 MySQL 数据库压力会非常高，Redis 用于缓解数据库压力。",
+      },
+      {
+        type: "heading",
+        id: "station-8-back-to-browser",
+        level: 3,
+        text: "第八站：数据最终回到浏览器",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "MySQL\n  ↓\nMapper\n  ↓\nService\n  ↓\nController\n  ↓\nJSON\n  ↓\n浏览器\n  ↓\nVue/React 更新页面",
+      },
+      {
+        type: "heading",
+        id: "why-understand",
+        level: 2,
+        text: "三、前端为什么一定要理解这条链路？",
+      },
+      {
+        type: "heading",
+        id: "before-vs-after",
+        level: 3,
+        text: "以前 vs 现在 的问题解决方式",
+      },
+      {
+        type: "table",
+        headers: ["问题", "以前（不懂链路）", "现在（理解链路）"],
+        rows: [
+          [
+            "接口为什么慢？",
+            "“后端接口慢”",
+            "分析 Nginx、Service 耗时、Redis 命中、SQL 慢查询、索引。",
+          ],
+          [
+            "接口为什么报错？",
+            "“找后端”",
+            "看请求参数 → Controller → Service → 日志 → 数据库。",
+          ],
+        ],
+      },
+      {
+        type: "quote",
+        text: "现代开发已经不是“写页面”，而是“构建系统”。",
+      },
+      {
+        type: "heading",
+        id: "growth-divide",
+        level: 2,
+        text: "四、前端工程师的成长分水岭",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "普通前端看到：接口\n\n优秀前端看到：\n浏览器 → 网络 → 网关 → 服务 → 业务 → 数据库 → 缓存 → 页面",
+      },
+      {
+        type: "paragraph",
+        text: "区别不是会不会写代码，而是是否拥有系统视角。",
+      },
+      {
+        type: "heading",
+        id: "practice",
+        level: 2,
+        text: "五、今日实践",
+      },
+      {
+        type: "paragraph",
+        text: "打开公司的一个页面（如用户列表），在浏览器 Network 中找到接口 /api/user/list，然后：",
+      },
+      {
+        type: "code",
+        language: "text",
+        code: "第一步：找到对应 Controller\n    ↓\n第二步：找到对应 Service\n    ↓\n第三步：找到对应 Mapper\n    ↓\n第四步：看看最终查询了哪个表",
+      },
+      {
+        type: "quote",
+        text: "不要修改代码，只完成一次完整链路追踪。",
+      },
+      {
+        type: "paragraph",
+        text: "当你第一次走通 浏览器 → Java → 数据库，你就真正开始理解后端系统。",
+      },
+    ],
+  },
 ];
